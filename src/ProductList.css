@@ -111,6 +111,15 @@ body {
     background-color: #c0392b;
 }
 
+.product-button.added {
+    background-color: grey;
+    cursor: default;
+}
+
+.product-button.added:hover {
+    background-color: grey; /* Prevent hover color from overriding */
+}
+
 /* Pseudo-elements - Sale badge */
 .product-card::before {
     content: "SALE";

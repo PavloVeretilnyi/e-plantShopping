@@ -269,6 +269,17 @@ function ProductList({ onHomeClick }) {
 
       const cartItems = useSelector((state) => state.cart.items);
 
+      useEffect(() => {
+        // Create a new state object based on current cart items
+        const newAddedToCart = {};
+        cartItems.forEach(item => {
+          newAddedToCart[item.name] = true;
+        });
+      
+        setAddedToCart(newAddedToCart);
+      }, [cartItems]);
+      
+
       const calculateTotalQuantity = () => {
         return cartItems.reduce((total, item) => total + item.quantity, 0);
       };  
@@ -323,10 +334,11 @@ function ProductList({ onHomeClick }) {
                             <div className="product-description">{plant.description}</div> {/* Display plant description */}
                             <div className="product-cost">{plant.cost}</div> {/* Display plant cost */}
                             <button
-                                className="product-button"
-                                onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
+                            onClick={() => handleAddToCart(plant)}
+                            className={`product-button ${addedToCart[plant.name] ? 'added' : ''}`}
+                            disabled={addedToCart[plant.name]}
                             >
-                                Add to Cart
+                            {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
                             </button>
                             </div>
                         ))}
